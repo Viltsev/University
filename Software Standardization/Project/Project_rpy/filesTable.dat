@@ -1,0 +1,17 @@
+I-Logix-RPY-Archive version 8.5.2 Modeler * 1159120
+
+- filesTable = { IRPYRawContainer 
+	- size = 10;
+	- value = "Project.rpy" ""
+	"Project_rpy\\AnalysisPkg.sbs" "AnalysisPkg"
+	"Project_rpy\\ArchitecturePkg.sbs" "ArchitecturePkg"
+	"Project_rpy\\CM_SubsystemPkg.sbs" "SubsystemsPkg::CM_SubsystemPkg"
+	"Project_rpy\\DL_SubsystemPkg.sbs" "SubsystemsPkg::DL_SubsystemPkg"
+	"Project_rpy\\DefaultComponent.cmp" "DefaultComponent"
+	"Project_rpy\\MM_SubsystemPkg.sbs" "SubsystemsPkg::MM_SubsystemPkg"
+	"Project_rpy\\RequirementsPkg.sbs" "RequirementsPkg"
+	"Project_rpy\\SubsystemsPkg.sbs" "SubsystemsPkg"
+	"Projects.rpl" ""
+	
+}
+
