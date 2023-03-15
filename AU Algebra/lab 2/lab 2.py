@@ -78,7 +78,7 @@ def max_divisors(arr):
     return max_num_divisors_elem
 
 def hasseDiagram(orderRatio):
-    level = 0
+    level = 1
     arrayOfLevels = []
 
     while len(orderRatio) > 0:
@@ -103,7 +103,99 @@ def hasseDiagram(orderRatio):
             print()
             array = []
 
+def getSetsFromMatrix(matrix, n):
+    arrayOfSets = []
+    array = []
+    transposeMatrix = np.transpose(matrix)
+    for i in range(n):
+        for j in range(n):
+            if transposeMatrix[i][j] == 1:
+                array.append(j + 1)
+        arrayOfSets.append(set(array))
+        array = []
+    return arrayOfSets
 
+def closureSystem(arrayOfSets, G, n):
+    resultClosure = []
+    resultClosure.append(G)
+    resultArrayOfSets = []
+    for i in range(n):
+        for j in range(len(resultClosure)):
+            if not((arrayOfSets[i] & resultClosure[j]) in resultClosure):
+                resultArrayOfSets.append(arrayOfSets[i] & resultClosure[j])
+        for k in resultArrayOfSets:
+            if not(k in resultClosure):
+                resultClosure.append(k)
+        resultArrayOfSets = []
+    return resultClosure
+
+# функция получения матрицы, состоящей из 0 и 1, из системы замыканий
+def getMatrixClosure(closureSys, n):
+    resultMatrix = []
+    for i in range(0, n):
+        a = []
+        for j in range(0, n):
+            if closureSys[j] <= closureSys[i]:
+                a.append(1)
+            else:
+                a.append(0)
+        resultMatrix.append(a)
+    return resultMatrix
+
+# вспомогательная функция для подсчета единиц в строке матрице
+def onesNumber(line):
+    res = 0
+    for i in line:
+        if i == 1:
+            res += 1
+    return res
+
+# функция получения диаграммы Хассе по матрице системы замыканий
+def hasseDiagramMatrix(closureSys, matrix):
+    level = 1
+    currentIndex = []
+
+    arrayOfLevels = []
+    currentLevel = []
+
+    while len(matrix) > 0:
+        minNumber = onesNumber(matrix[0])
+        for i in range(len(matrix)):
+            currentNumber = onesNumber(matrix[i])
+            if currentNumber < minNumber:
+                minNumber = currentNumber
+                currentIndex = []
+                currentIndex.append(i)
+            elif currentNumber == minNumber:
+                currentIndex.append(i)
+        print("Уровень", level, ": ", end= ' ')
+        for k in currentIndex:
+            if closureSys[k] == set():
+                print('Empty Set', end= ' ')
+            else:
+                print(closureSys[k], end= ' ')
+            currentLevel.append(closureSys[k])
+        arrayOfLevels.append(currentLevel)
+        for k in currentIndex:
+            if k > (len(matrix) - 1):
+                k = (len(matrix) - 1)
+            matrix.pop(k)
+            closureSys.pop(k)
+        print()
+        currentIndex = []
+        level += 1
+        currentLevel = []
+
+    print("Связи: ")
+    array = []
+    for curLevelInd in range(0, len(arrayOfLevels) - 1):
+        for curLevel in arrayOfLevels[curLevelInd]:
+            for nextLevel in arrayOfLevels[curLevelInd + 1]:
+                if curLevel <= nextLevel:
+                    array.append(nextLevel)
+            print(curLevel, ":", *array, sep=' ')
+            print()
+            array = []
 
 """
 MAIN PROGRAM
@@ -143,5 +235,41 @@ hasseDiagram(orderRatio)
 
 # 3. Алгоритм вычисления решетки концептов
 print("3. Алгоритм вычисления решетки концептов")
+n = int(input("Введите размер матрицы контекста:"))
+matrix = []
 
+print("Введите матрицу контекста:")
 
+for i in range(n):
+    a = []
+    for j in range(n):
+        a.append(int(input()))
+    matrix.append(a)
+
+for i in range(n):
+    for j in range(n):
+        print(matrix[i][j], end=" ")
+    print()
+
+arrayForMainSet = []
+for i in range(n):
+    arrayForMainSet.append(i + 1)
+
+mainSet = set(arrayForMainSet)
+# print(mainSet)
+
+arrayOfElements = getSetsFromMatrix(matrix, n)
+# print(arrayOfElements)
+
+closureSys = closureSystem(arrayOfElements, mainSet, n)
+print("Система замыканий Zfg: ")
+print(closureSys)
+
+matrixFromClosureSystem = getMatrixClosure(closureSys, len(closureSys))
+print(matrixFromClosureSystem)
+# for i in range(len(closureSys)):
+#     for j in range(len(closureSys)):
+#         print(matrixFromClosureSystem[i][j], end=" ")
+#     print()
+
+hasseDiagramMatrix(closureSys, matrixFromClosureSystem)
