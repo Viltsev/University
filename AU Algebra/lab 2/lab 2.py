@@ -23,6 +23,17 @@ FUNCTIONS
 import math
 import numpy as np
 import sys
+
+def copy(array):
+    result = []
+    for i in array:
+        result.append(i)
+    return result
+
+def copyMatrix(matrix):
+    return [row[:] for row in matrix]
+
+
 # функция нахождения делителей числа (отношения порядка)
 def find_divisors(n):
     divisors = []
@@ -197,6 +208,97 @@ def hasseDiagramMatrix(closureSys, matrix):
             print()
             array = []
 
+
+# функция для получения решетки концпетов
+def concept(matrix, closureSys, n):
+    result = []
+    a = []
+    for i in range(n):
+        a.append(1)
+    arrayOfIndex = np.array(a)
+    for set in closureSys:
+        for i in set:
+            currentArrayOfIndex = np.array(matrix[i-1])
+            arrayOfIndex = np.multiply(arrayOfIndex, currentArrayOfIndex)
+        flagEmpty = True
+        arrayOfChar = []
+        for i in range(len(arrayOfIndex)):
+            if arrayOfIndex[i] == 1:
+                arrayOfChar.append(i + 1)
+                flagEmpty = False
+        if flagEmpty:
+            arrayOfChar.append('Ø')
+        result.append(arrayOfChar)
+        print()
+        arrayOfIndex = np.array(a)
+    return result
+
+
+# функция для перевода int значений решетки в char
+def intToChar(concept, closureSysCopy):
+    result = []
+    for i in range(len(closureSysCopy)):
+        array = []
+        for j in concept[i]:
+            if len(concept[i]) == n:
+                array.append('M')
+                break
+            elif type(j) is int:
+                array.append(chr(96 + j))
+            else:
+                array.append(j)
+        result.append(array)
+    return result
+
+def hasseDiagramConcept(closureSys, matrix, conceptArray):
+    level = 1
+    currentIndex = []
+
+    arrayOfLevels = []
+    currentLevel = []
+
+    while len(matrix) > 0:
+        minNumber = onesNumber(matrix[0])
+        for i in range(len(matrix)):
+            currentNumber = onesNumber(matrix[i])
+            if currentNumber < minNumber:
+                minNumber = currentNumber
+                currentIndex = []
+                currentIndex.append(i)
+            elif currentNumber == minNumber:
+                currentIndex.append(i)
+        print("Уровень", level, ": ", end= ' ')
+        for k in currentIndex:
+            if closureSys[k] == set():
+                print("(", 'Empty Set', end= ', ')
+                print("{", *conceptArray[k], "} )", sep= ' ', end= '  ')
+            else:
+                print("(", closureSys[k], end= ', ')
+                print("{", *conceptArray[k], "} )", sep= ' ', end='  ')
+            currentLevel.append(closureSys[k])
+        arrayOfLevels.append(currentLevel)
+        for k in currentIndex:
+            if k > (len(matrix) - 1):
+                k = (len(matrix) - 1)
+            matrix.pop(k)
+            closureSys.pop(k)
+            conceptArray.pop(k)
+        print()
+        currentIndex = []
+        level += 1
+        currentLevel = []
+
+    print("Связи: ")
+    array = []
+    for curLevelInd in range(0, len(arrayOfLevels) - 1):
+        for curLevel in arrayOfLevels[curLevelInd]:
+            for nextLevel in arrayOfLevels[curLevelInd + 1]:
+                if curLevel <= nextLevel:
+                    array.append(nextLevel)
+            print(curLevel, ":", *array, sep=' ')
+            print()
+            array = []
+
 """
 MAIN PROGRAM
 """
@@ -238,6 +340,9 @@ print("3. Алгоритм вычисления решетки концепто�
 n = int(input("Введите размер матрицы контекста:"))
 matrix = []
 
+"""
+ВВОД МАТРИЦЫ КОНТЕКСТА
+"""
 print("Введите матрицу контекста:")
 
 for i in range(n):
@@ -246,30 +351,69 @@ for i in range(n):
         a.append(int(input()))
     matrix.append(a)
 
+"""
+ВЫВОД МАТРИЦЫ КОНТЕКСТА
+"""
+print("Матрица контекста: ")
 for i in range(n):
     for j in range(n):
         print(matrix[i][j], end=" ")
     print()
 
+
+#---------------------------------------------
 arrayForMainSet = []
 for i in range(n):
     arrayForMainSet.append(i + 1)
 
 mainSet = set(arrayForMainSet)
-# print(mainSet)
 
 arrayOfElements = getSetsFromMatrix(matrix, n)
-# print(arrayOfElements)
+#---------------------------------------------
+
+"""
+СИСТЕМА ЗАМЫКАНИЙ
+"""
 
 closureSys = closureSystem(arrayOfElements, mainSet, n)
+closureSysCopy = copy(closureSys)
 print("Система замыканий Zfg: ")
 print(closureSys)
 
+"""
+МАТРИЦА ДЛЯ СИСТЕМЫ ЗАМЫКАНИЙ
+"""
 matrixFromClosureSystem = getMatrixClosure(closureSys, len(closureSys))
-print(matrixFromClosureSystem)
-# for i in range(len(closureSys)):
-#     for j in range(len(closureSys)):
-#         print(matrixFromClosureSystem[i][j], end=" ")
-#     print()
+matrixFromClosureSystemCopy = copyMatrix(matrixFromClosureSystem)
 
+"""
+ДИАГРАММА ХАССЕ ДЛЯ СИСТЕМЫ ЗАМЫКАНИЙ
+"""
+print("Диаграмма Хассе для системы замыканий: ")
 hasseDiagramMatrix(closureSys, matrixFromClosureSystem)
+print()
+
+"""
+РЕШЕТКА КОНЦЕПТОВ
+"""
+conc = concept(matrix, closureSysCopy, n)
+
+print("Решетка концептов: ")
+for i in range(len(closureSysCopy)):
+    print("φ(", closureSysCopy[i], ") = ", end=' ')
+    for j in conc[i]:
+        if len(conc[i]) == n:
+            print("M")
+            break
+        elif type(j) is int:
+            print(chr(96 + j), end=' ')
+        else:
+            print(j)
+    print()
+
+"""
+ДИАГРАММА ХАССЕ ДЛЯ РЕШЕТКИ КОНЦЕПТОВ
+"""
+print("Диаграмма Хассе для решетки концептов: ")
+charArray = intToChar(conc, closureSysCopy)
+hasseDiagramConcept(closureSysCopy, matrixFromClosureSystemCopy, charArray)
