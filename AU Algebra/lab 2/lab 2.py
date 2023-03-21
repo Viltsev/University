@@ -35,11 +35,18 @@ def copyMatrix(matrix):
 
 
 # функция нахождения делителей числа (отношения порядка)
+"""
+1. Массив делителей = [], i = 2
+2. Пока i меньше n+1, иначе шаг 5
+3. Если число n делится без остатка на i, иначе i++ и шаг 2
+4. Добавляем i в массив делителей, i++ и шаг 2
+5. Возвращаем отношение порядка
+"""
 def find_divisors(n):
-    divisors = []
+    divisors = [] # массив делителей
     for i in range(2, n+1):
-        if n % i == 0:
-            divisors.append(i)
+        if n % i == 0: # если число делится без остатка на i
+            divisors.append(i) # добавляем i в массив делителей
     return divisors
 
 def smallest_divisors(arr):
@@ -54,103 +61,162 @@ def smallest_divisors(arr):
     result = list(set(res))
     return result
 
-
+# функция возвращающая количество делителей числа n
 def count_divisors(n, arr):
-    """возвращает количество делителей числа n"""
-    count = 0
+    count = 0 # количество делителей
     for i in arr:
-        if n % i == 0:
-            count += 1
+        if n % i == 0: # если число делится на i
+            count += 1 # увеличиваем число делителей
     return count
 
+# функция нахождения минимальных делителей в массиве чисел
+"""
+1. Минимальное число делителей = INT_MAX
+2. Массив чисел с минимальным число делителей = []
+3. Берем новый элемент из входного массива, пока не прошли по всем элементам массива отношения порядка, иначе шаг 8
+4. Находим количество делителей текущего числа
+5. Если кол-во делителей числа <= минимального числа делителей
+6. Обновляем минимальное кол-во делителей
+7. Добавляем элемент в массив чисел с минимальными делителями, далее шаг 3
+8. Возвращаем минимальные элементы отношения порядка
+
+"""
 def min_divisors(arr):
-    min_num_divisors = sys.maxsize
-    min_num_divisors_elem = []
-    for elem in arr:
-        num_divisors = count_divisors(elem, arr)
-        if num_divisors <= min_num_divisors:
-            min_num_divisors = num_divisors
-            min_num_divisors_elem.append(elem)
+    min_num_divisors = sys.maxsize # минимальное число делителей
+    min_num_divisors_elem = [] # массив чисел с минимальным число делителей
+    for elem in arr: # проходимся по всем числам в массиве
+        num_divisors = count_divisors(elem, arr) # количество делителей текущего числа
+        if num_divisors <= min_num_divisors: # если кол-во делителей числа <= минимального числа делителей
+            min_num_divisors = num_divisors # обновляем минимальное кол-во делителей
+            min_num_divisors_elem.append(elem) # добавляем элемент в массив чисел с минимальными делителями
     return min_num_divisors_elem
 
+# функция возвращающая число с наибольшим количеством делителей
+
+"""
+1. Максимальное число делителей = 0
+2. Массив с максимальным числом делителей = []
+3. Берем новый элемент из входного массива, пока не прошли по всем элементам массива отношения порядка, иначе шаг 10 
+4. Ищем кол-во делителей текущего числа с помощью функции count_divisors
+5. Если число делителей больше максимального числа делителей
+6. Обновляем максимальное кол-во делителей
+7. Если в массиве чисел с макс. кол-ом делителей уже есть числа
+8. Убираем первый эл-т из массива
+9. Добавляем новый элемент в массив, далее шаг 3
+10. Возвращаем максимальные элементы отношения порядка
+
+"""
+
 def max_divisors(arr):
-    """возвращает число с наибольшим количеством делителей"""
-    max_num_divisors = 0
-    max_num_divisors_elem = []
-    for elem in arr:
-        num_divisors = count_divisors(elem, arr)
-        if num_divisors > max_num_divisors:
-            max_num_divisors = num_divisors
-            if len(max_num_divisors_elem) > 0:
-                max_num_divisors_elem.remove(max_num_divisors_elem[0])
-            max_num_divisors_elem.append(elem)
-        # elif num_divisors == max_num_divisors:
-        #     max_num_divisors_elem.append(elem)
+    max_num_divisors = 0 # максимальное число делителей
+    max_num_divisors_elem = [] # массив с максимальным числом делителей
+    for elem in arr: # проходимся по всем числам в массиве
+        num_divisors = count_divisors(elem, arr) # ищем кол-во делителей текущего числа
+        if num_divisors > max_num_divisors: # если число делителей больше максимального числа делителей
+            max_num_divisors = num_divisors # обновляем максимальное кол-во делителей
+            if len(max_num_divisors_elem) > 0: # если в массиве чисел с макс. кол-ом делителей уже есть числа
+                max_num_divisors_elem.remove(max_num_divisors_elem[0]) # убираем первый эл-т из массива
+            max_num_divisors_elem.append(elem) # добавляем новый элемент в массив
     return max_num_divisors_elem
 
+# функция построения диаграммы Хассе по отношению порядка
+# Вход: отношение порядка
+# Выход: диаграмма Хассе для отношения порядка
 def hasseDiagram(orderRatio):
-    level = 1
-    arrayOfLevels = []
+    level = 1 # номер уровня
+    arrayOfLevels = [] # массив уровней
 
-    while len(orderRatio) > 0:
-        minLevel = min_divisors(orderRatio)
-        print("Уровень", level, ": ", *minLevel, sep= ' ')
+    while len(orderRatio) > 0: # пока отношение порядка не пустое
+        minLevel = min_divisors(orderRatio) # на уровне располагаются числа с наименьшим числом делителей
+        print("Уровень", level, ": ", *minLevel, sep= ' ') # печатаем уровень
         print()
 
-        for valueToRemove in minLevel:
-            orderRatio.remove(valueToRemove)
+        for valueToRemove in minLevel: # проходимся по числам текущего уровня
+            orderRatio.remove(valueToRemove) # удаляем их из отношения порядка
 
-        arrayOfLevels.append(minLevel)
-        level += 1
+        arrayOfLevels.append(minLevel) # добавляем уровень в массив уровней
+        level += 1 # переход к следующему уровню
 
     print("Связи: ")
-    array = []
-    for curLevel in range(0, len(arrayOfLevels) - 1):
-        for i in arrayOfLevels[curLevel]:
-            for j in arrayOfLevels[curLevel + 1]:
-                if j % i == 0:
-                    array.append(j)
-            print(i, ":", *array, sep=' ')
+    array = [] # массив связей
+    for curLevel in range(0, len(arrayOfLevels) - 1): # проходимся по уровням в массиве уровней
+        for i in arrayOfLevels[curLevel]: # проходимся по числам текущего уровня
+            for j in arrayOfLevels[curLevel + 1]: # проходимся по числам следующего уровня
+                if j % i == 0: # если число следующего уровня без остатка делится на число текущего уровня
+                    array.append(j) # добавляем число следующего уровня в массив связей
+            print(i, ":", *array, sep=' ') # для числа текущего уровня печатаем его массив связей
             print()
-            array = []
+            array = [] # обновляем массив связей
 
+# функция получения множеств из матрицы контекста
+# Вход: матрица контекста, размер матрицы контекста
+# Выход: множества из матрицы контекста
+"""
+1. Массив множеств = []
+2. Массив множества (одного) = []
+3. Транспонируем матрицу, полученную на входе
+4. i = 0
+5. Пока i меньше n, j = 0, иначе шаг 11
+6. Пока j меньше n, иначе шаг 9
+7. Если элемент матрицы равен 1, иначе j++ и шаг 6 
+8. Добавляем в массив множества j + 1
+9. Добавляем в массив множеств текущий массив множества
+10. Обновляем массив множества, i++ и шаг 5
+11. Возвращаем массив множеств 
+
+"""
 def getSetsFromMatrix(matrix, n):
-    arrayOfSets = []
-    array = []
-    transposeMatrix = np.transpose(matrix)
-    for i in range(n):
+    arrayOfSets = [] # массив множеств
+    array = [] # массив множества
+    transposeMatrix = np.transpose(matrix) # транспонируем матрицу
+    for i in range(n): # проходимся по матрице
         for j in range(n):
-            if transposeMatrix[i][j] == 1:
-                array.append(j + 1)
-        arrayOfSets.append(set(array))
-        array = []
+            if transposeMatrix[i][j] == 1: # если элемент матрицы равен 1
+                array.append(j + 1) # добавляем в массив множества j + 1
+        arrayOfSets.append(set(array)) # добавляем в массив множеств текущий массив множества
+        array = [] # обновляем массив множества
     return arrayOfSets
 
+# функция системы замыканий
+# Вход: множества матрицы контекста, множество объектов G, размер матрицы контекста
+# Выход: система замыканий
 def closureSystem(arrayOfSets, G, n):
-    resultClosure = []
-    resultClosure.append(G)
-    resultArrayOfSets = []
-    for i in range(n):
-        for j in range(len(resultClosure)):
+    resultClosure = [] # система замыканий
+    resultClosure.append(G) # добавляем в систему замыканий общее множество G
+    resultArrayOfSets = [] # вспомогательный массив
+    for i in range(n): # проходимся по всем множествам из массива множеств
+        for j in range(len(resultClosure)): # проходимся по элементам системы замыканий
+            # если пересечение i-го множества с j-ым эл-ом из системы замыканий нет в системе замыканий
             if not((arrayOfSets[i] & resultClosure[j]) in resultClosure):
-                resultArrayOfSets.append(arrayOfSets[i] & resultClosure[j])
-        for k in resultArrayOfSets:
-            if not(k in resultClosure):
-                resultClosure.append(k)
-        resultArrayOfSets = []
+                resultArrayOfSets.append(arrayOfSets[i] & resultClosure[j]) # добавляем это пересечения в всп. массив
+        for k in resultArrayOfSets: # проходимся по эл-м вспомогательного массива
+            if not(k in resultClosure): # если k-го эл-та нет в системе замыканий
+                resultClosure.append(k) # добавляем это пересечение в систему замыканий
+        resultArrayOfSets = [] # обнуление всп. массива
     return resultClosure
 
 # функция получения матрицы, состоящей из 0 и 1, из системы замыканий
+
+"""
+                {1, 2, 3, 4}  {2, 4}  {4}  {1,4}  {1, 3, 4}
+{1, 2, 3, 4}    1             1       1    1      1
+      {2, 4}    0             1       1    0      0
+         {4}    0             0       1    0      0
+       {1,4}    0             0       1    1      0
+   {1, 3, 4}    0             0       1    1      1
+         
+"""
+
 def getMatrixClosure(closureSys, n):
-    resultMatrix = []
+    resultMatrix = [] # результирующая матрица
     for i in range(0, n):
-        a = []
+        a = [] # вспомогательный массив
         for j in range(0, n):
-            if closureSys[j] <= closureSys[i]:
-                a.append(1)
+            if closureSys[j] <= closureSys[i]: # если j-ый элемент принадлежит в i-му
+                a.append(1) # добавляем 1 в всп-ый массив
             else:
-                a.append(0)
-        resultMatrix.append(a)
+                a.append(0) # иначе добавляем 0
+        resultMatrix.append(a) # добавляем всп-ый массив в результирующую матрицу
     return resultMatrix
 
 # вспомогательная функция для подсчета единиц в строке матрице
@@ -162,142 +228,156 @@ def onesNumber(line):
     return res
 
 # функция получения диаграммы Хассе по матрице системы замыканий
+# Вход: система замыканий, матрица системы замыканий
+# Выход: диаграмма Хассе для системы замыканий
 def hasseDiagramMatrix(closureSys, matrix):
-    level = 1
-    currentIndex = []
+    level = 1 # текущий уровень диаграммы
+    currentIndex = [] # массив текущих индексов
+    arrayOfLevels = [] # массив уровней
+    currentLevel = [] # массив текущего уровня
 
-    arrayOfLevels = []
-    currentLevel = []
-
-    while len(matrix) > 0:
-        minNumber = onesNumber(matrix[0])
-        for i in range(len(matrix)):
-            currentNumber = onesNumber(matrix[i])
-            if currentNumber < minNumber:
-                minNumber = currentNumber
-                currentIndex = []
-                currentIndex.append(i)
-            elif currentNumber == minNumber:
-                currentIndex.append(i)
-        print("Уровень", level, ": ", end= ' ')
-        for k in currentIndex:
-            if closureSys[k] == set():
-                print('Empty Set', end= ' ')
+    while len(matrix) > 0: # пока матрица системы замыканий не пустая
+        minNumber = onesNumber(matrix[0]) # минимальное кол-во единиц
+        for i in range(len(matrix)): # проходимся по матрице системы замыканий
+            currentNumber = onesNumber(matrix[i]) # кол-во единиц в текущей строке матрицы
+            if currentNumber < minNumber: # если текущее кол-во единиц меньше, чем минимальное кол-во единиц
+                minNumber = currentNumber # обновляем минимальное кол-во единиц
+                currentIndex = [] # обнуляем массив текущих индексов
+                currentIndex.append(i) # добавляем в массив текущих индексов индекс строки с мин-ым кол-ом единиц
+            elif currentNumber == minNumber: # если текущее кол-во единиц равно минимальному
+                currentIndex.append(i) # добавляем в массив текущих индексов индекс строки с мин-ым кол-ом единиц
+        print("Уровень", level, ": ", end= ' ') # печать текущего уровня
+        for k in currentIndex: # проходимся по индексам в массиве текущих индексов
+            if closureSys[k] == set(): # если в системе замыканий k-ый элемент - пустое множество
+                print('Empty Set', end= ' ') # печатаем что это пустое множество
             else:
-                print(closureSys[k], end= ' ')
-            currentLevel.append(closureSys[k])
-        arrayOfLevels.append(currentLevel)
-        for k in currentIndex:
-            if k > (len(matrix) - 1):
-                k = (len(matrix) - 1)
-            matrix.pop(k)
-            closureSys.pop(k)
+                print(closureSys[k], end= ' ') # иначе печатаем k-ый элемент из системы замыканий
+            currentLevel.append(closureSys[k]) # добавляем в массив текущего уровеня данный элемент
+        arrayOfLevels.append(currentLevel) # добавляем текущий уровень в массив уровней
+        for k in currentIndex: # проходимся по индексам в массиве индексов
+            if k > (len(matrix) - 1): # если индекс больше, чем размер матрицы - 1
+                k = (len(matrix) - 1) # присваиваем k размер матрицы - 1
+            matrix.pop(k) # удаляем из матрицы системы замыканий элемент с k-ым индексом
+            closureSys.pop(k) # удаляем из системы замыканий эл-т с k-ым индексом
         print()
-        currentIndex = []
-        level += 1
-        currentLevel = []
+        currentIndex = [] # обнуляем массив текущих индексов
+        level += 1 # переходим на следующий уровень
+        currentLevel = [] # обнуляем массив текущего уровня
 
+    # печать связей между элементами диаграммы
     print("Связи: ")
-    array = []
-    for curLevelInd in range(0, len(arrayOfLevels) - 1):
-        for curLevel in arrayOfLevels[curLevelInd]:
-            for nextLevel in arrayOfLevels[curLevelInd + 1]:
-                if curLevel <= nextLevel:
-                    array.append(nextLevel)
-            print(curLevel, ":", *array, sep=' ')
+    array = [] # вспомогательный массив
+    for curLevelInd in range(0, len(arrayOfLevels) - 1): # проходимся по массиву уровней
+        for curLevel in arrayOfLevels[curLevelInd]: # проходимся по эл-ам текущего уровня
+            for nextLevel in arrayOfLevels[curLevelInd + 1]: # проходимся по эл-ам следующего уровня
+                if curLevel <= nextLevel: # если элемент текущего уровня принадлежит эл-ту след-го уровня
+                    array.append(nextLevel) # добавляем в всп-ый массив эл-т следующего уровня
+            print(curLevel, ":", *array, sep=' ') # для элемента текущего уровня печатаем полученный всп-ый массив
             print()
-            array = []
+            array = [] # обновляем всп-ый массив
 
 
 # функция для получения решетки концпетов
+# Вход: матрица контекста, система замыканий, размер матрицы контекста
+# Выход: решетка концептов
 def concept(matrix, closureSys, n):
     result = []
-    a = []
-    for i in range(n):
+    a = [] # вспомогательный массив
+    for i in range(n): # заполняем всп-ый массив единицами
         a.append(1)
-    arrayOfIndex = np.array(a)
-    for set in closureSys:
-        for i in set:
-            currentArrayOfIndex = np.array(matrix[i-1])
-            arrayOfIndex = np.multiply(arrayOfIndex, currentArrayOfIndex)
-        flagEmpty = True
-        arrayOfChar = []
-        for i in range(len(arrayOfIndex)):
-            if arrayOfIndex[i] == 1:
-                arrayOfChar.append(i + 1)
-                flagEmpty = False
-        if flagEmpty:
+    arrayOfIndex = np.array(a) # массив чисел, который будем перемножать с строчками матрицы контекста
+                               # (изначально заполнен единицами)
+    for set in closureSys: # проходимся по множествам в системе замыканий
+        for i in set: # проходимся по эл-ам текущего множества
+            currentArrayOfIndex = np.array(matrix[i-1]) # берем строку из матрицы контекста
+            arrayOfIndex = np.multiply(arrayOfIndex, currentArrayOfIndex) # перемножаем текущий массив arrayOfIndex
+                                                                          # с текущей строчкой матрицы
+        flagEmpty = True # флаг для проверки, заполнена строка нулями полностью или нет
+        arrayOfChar = [] # всп-ый массив
+        for i in range(len(arrayOfIndex)): # проходимся по эл-ам arrayOfIndex
+            if arrayOfIndex[i] == 1: # если i-ый элемент равен 1
+                arrayOfChar.append(i + 1) # добавляем в всп-ый массив индекс i+1
+                flagEmpty = False # строка не заполнена только нулями -> False
+        if flagEmpty: # если строка полностью из нулей, тогда выводим символ пустого множества для нее
             arrayOfChar.append('Ø')
-        result.append(arrayOfChar)
+        result.append(arrayOfChar) # в результирующий массив добавляем всп-ый массив
         print()
-        arrayOfIndex = np.array(a)
+        arrayOfIndex = np.array(a) # заполняем вновь arrayOfIndex единицами для дальнейшего перемножения
     return result
 
 
 # функция для перевода int значений решетки в char
+# Вход: решетка концептов, система замыканий
+# Выход: решетка концептов, где символы - char
 def intToChar(concept, closureSysCopy):
-    result = []
-    for i in range(len(closureSysCopy)):
-        array = []
-        for j in concept[i]:
-            if len(concept[i]) == n:
-                array.append('M')
+    result = [] # результирующий массив
+    for i in range(len(closureSysCopy)): # проходимся по системе замыканий
+        array = [] # вспомогательный массив
+        for j in concept[i]: # проходимся по элементам элемента решетки концептов
+            if len(concept[i]) == n: # если элемент решетки концептов равен множеству атрибутов M
+                array.append('M') # добавляем в всп-ый массив символ M
                 break
-            elif type(j) is int:
-                array.append(chr(96 + j))
+            elif type(j) is int: # переводим индекс текущего элемента элементов решетки концептов в char (если int)
+                array.append(chr(96 + j)) # и добавляем в всп-ый массив
             else:
                 array.append(j)
-        result.append(array)
+        result.append(array) # добавляем в результирующий массив всп-ый массив
     return result
 
+# функция построения диаграммы Хассе для решетки концептов
+# Вход: система замыканий, матрица системы замыканий, решетка концептов (символы уже char)
+# Выход: диаграмма Хассе и связь между её элементами
 def hasseDiagramConcept(closureSys, matrix, conceptArray):
-    level = 1
-    currentIndex = []
+    level = 1 # текущий уровень диаграммы
+    currentIndex = [] # массив текущих индексов
 
-    arrayOfLevels = []
-    currentLevel = []
+    arrayOfLevels = [] # массив уровней
+    currentLevel = [] # массив текущего уровня
 
-    while len(matrix) > 0:
-        minNumber = onesNumber(matrix[0])
-        for i in range(len(matrix)):
-            currentNumber = onesNumber(matrix[i])
-            if currentNumber < minNumber:
-                minNumber = currentNumber
-                currentIndex = []
-                currentIndex.append(i)
-            elif currentNumber == minNumber:
-                currentIndex.append(i)
-        print("Уровень", level, ": ", end= ' ')
-        for k in currentIndex:
-            if closureSys[k] == set():
-                print("(", 'Empty Set', end= ', ')
-                print("{", *conceptArray[k], "} )", sep= ' ', end= '  ')
+    while len(matrix) > 0: # пока матрица системы замыканий не пустая
+        minNumber = onesNumber(matrix[0]) # минимальное кол-во единиц
+        for i in range(len(matrix)):  # проходимся по матрице системы замыканий
+            currentNumber = onesNumber(matrix[i])  # кол-во единиц в текущей строке матрицы
+            if currentNumber < minNumber:  # если текущее кол-во единиц меньше, чем минимальное кол-во единиц
+                minNumber = currentNumber  # обновляем минимальное кол-во единиц
+                currentIndex = []  # обнуляем массив текущих индексов
+                currentIndex.append(i)  # добавляем в массив текущих индексов индекс строки с мин-ым кол-ом единиц
+            elif currentNumber == minNumber:  # если текущее кол-во единиц равно минимальному
+                currentIndex.append(i)  # добавляем в массив текущих индексов индекс строки с мин-ым кол-ом единиц
+        print("Уровень", level, ": ", end= ' ') # печать текущего уровня
+        for k in currentIndex: # проходимся по индексам в массиве индексов
+            if closureSys[k] == set(): # если в системе замыканий k-ый элемент - пустое множество
+                print("(", 'Ø', end= ', ') # печать символа пустого множества
+                print("{", *conceptArray[k], "} )", sep= ' ', end= '  ') # печать элементов решетки концептов
+                                                                         # для k-го индекса
             else:
-                print("(", closureSys[k], end= ', ')
-                print("{", *conceptArray[k], "} )", sep= ' ', end='  ')
-            currentLevel.append(closureSys[k])
-        arrayOfLevels.append(currentLevel)
-        for k in currentIndex:
-            if k > (len(matrix) - 1):
-                k = (len(matrix) - 1)
-            matrix.pop(k)
-            closureSys.pop(k)
-            conceptArray.pop(k)
+                print("(", closureSys[k], end= ', ') # печать k-го элемента системы замыканий
+                print("{", *conceptArray[k], "} )", sep= ' ', end='  ') # печать элементов решетки концептов
+                                                                        # для k-го индекса
+            currentLevel.append(closureSys[k]) # добавляем k-ый элемент системы замыканий в текущий уровень
+        arrayOfLevels.append(currentLevel) # добавляем текущих уровень в массив уровней
+        for k in currentIndex: # проходимся по индексам в массиве индексов
+            if k > (len(matrix) - 1):  # если индекс больше, чем размер матрицы - 1
+                k = (len(matrix) - 1)  # присваиваем k размер матрицы - 1
+            matrix.pop(k)  # удаляем из матрицы системы замыканий элемент с k-ым индексом
+            closureSys.pop(k)  # удаляем из системы замыканий эл-т с k-ым индексом
+            conceptArray.pop(k) # удаляем из решетки концептов эл-т с k-ым индексом
         print()
-        currentIndex = []
-        level += 1
-        currentLevel = []
+        currentIndex = [] # обнуляем массив текущих индексов
+        level += 1 # переход на следующий уровень
+        currentLevel = [] # обнуляем массив текущего уровня
 
+    # печать связей между элементами диаграммы
     print("Связи: ")
-    array = []
-    for curLevelInd in range(0, len(arrayOfLevels) - 1):
-        for curLevel in arrayOfLevels[curLevelInd]:
-            for nextLevel in arrayOfLevels[curLevelInd + 1]:
-                if curLevel <= nextLevel:
-                    array.append(nextLevel)
-            print(curLevel, ":", *array, sep=' ')
+    array = [] # вспомогательный уровень
+    for curLevelInd in range(0, len(arrayOfLevels) - 1): # проходимся по массиву уровней
+        for curLevel in arrayOfLevels[curLevelInd]: # проходимся по элементам текущего уровня
+            for nextLevel in arrayOfLevels[curLevelInd + 1]: # проходимся по элементам следующего уровня
+                if curLevel <= nextLevel: # если эл-т текущего уровня принадлежит эл-ту следующего уровня
+                    array.append(nextLevel) # добавляем эл-т следующего уровня в всп-ый массив
+            print(curLevel, ":", *array, sep=' ') # для элемента текущего уровня печатаем полученный всп-ый массив
             print()
-            array = []
+            array = [] # обнуляем всп-ый массив
 
 """
 MAIN PROGRAM
@@ -307,23 +387,35 @@ print("Лабораторная работа №2")
 myNumber = int(input("Введите число:"))
 
 # 1.Алгоритмы вычисления минимальных (максимальных) и наименьших (наибольших) элементов
+"""
+Описание алгоритма:
+1. Отношение порядка - делители введеного числа (находим с помощью вспомогательной функции find_divisors)
+2. Для нахождения минимальных элементов отношения порядка воспользуемся вспомогательной функцией min_divisors
+    - если минимальный элемент один, то он так же является наименьшим
+    - иначе - все полученные элементы являются просто минимальными
+3. Для нахождения максимальных элементов отношения порядка воспользуемся вспомогательной функцией max_divisors
+    - если максимальный элемент один, то он так же является наибольшим
+    - иначе - все полученные элементы являются просто максимальными
+"""
+
+
 print("1. Алгоритмы вычисления минимальных (максимальных) и наименьших (наибольших) элементов")
 
-orderRatio = find_divisors(myNumber)
+orderRatio = find_divisors(myNumber) # отношение порядка
 print("Отношение порядка числа ", myNumber)
 print("{", *orderRatio, "}")
 print()
 
-minElementsOR = min_divisors(orderRatio)
-if len(minElementsOR) == 1:
+minElementsOR = min_divisors(orderRatio) # нахождение минимальных эл-ов отношения порядка
+if len(minElementsOR) == 1: # если минимальный эл-т один
     print("Наименьший (минимальный) элемент отношения порядка: ")
     print(minElementsOR[0])
 else:
     print("Минимальные элементы отношения порядка: ")
     print("{", *minElementsOR, "}")
 
-maxElementsOR = max_divisors(orderRatio)
-if len(maxElementsOR) == 1:
+maxElementsOR = max_divisors(orderRatio) # нахождение максимальных эл-ов отношения порядка
+if len(maxElementsOR) == 1: # если максимальный эл-т один
     print("Наибольший (максимальный) элемент отношения порядка: ")
     print(maxElementsOR[0])
 else:
@@ -332,10 +424,130 @@ else:
 print()
 
 # 2. Алгоритм построения диаграммы Хассе
+"""
+Описание алгоритма:
+1. Пока отношение порядка - не пусто, 
+    находим числа в отношении порядка с минимальным кол-вом делителей и располагаем их на одном уровне, иначе шаг 4
+2. Удаляем найденные числа из отношения порядка
+3. Добавляем текущий уровень в общий массив уровней, далее переход к шагу 1
+Печать связей между числами в диаграмме:
+4. curLevel = 0, массив связей = []
+5. Рассматриваем уровень с индексом curLevel в массиве уровней
+6. Рассматриваем i-ый элемент curLevel уровня, если рассмотрели все эл-ты, тогда curLevel++ и шаг 5
+7. Проходимся по всем элементам curLevel + 1 уровня,
+    если число следующего уровня без остатка делится на число текущего уровня, то шаг 8
+    если рассмотрели все элементы curLevel + 1 уровня, тогда шаг 9
+8. Добавляем число следующего уровня в массив связей, далее вновь шаг 7
+9. Печать массива связей для i-го элемента curLevel уровня, обнуление массива связей, i++, шаг 6
+"""
 print("2. Алгоритм построения диаграммы Хассе")
 hasseDiagram(orderRatio)
 
 # 3. Алгоритм вычисления решетки концептов
+"""
+Описание алгоритма:
+Часть 1. Получение множеств из матрицы контекста
+1. массив множеств = [], массив текущего множества = []
+2. Транспонируем матрицу контекста
+3. Пока i меньше n, иначе шаг 7
+4. Пока j меньше n, иначе шаг 6
+5. Если элемент матрицы равен 1, тогда добавляем в массив текущего множества j + 1, j++ и шаг 4
+6. Добавляем в массив множеств текущий массив множества, обнуляем массив множества, j = 0, i++ и шаг 3
+7. Возвращаем массив множеств
+Пример: 
+Матрица контекста:
+     a b c d
+  1  1 0 1 0
+  2  1 1 0 0
+  3  0 1 0 1
+  4  0 1 0 1
+Множества:
+{1, 2}, {2, 3, 4}, {1}, {3, 4}
+
+Часть 2. Получение системы замыканий
+1. resultClosure = [] (система замыканий)
+2. Добавляем в систему замыканий общее множество G
+3. resultArrayOfSets = [] (вспомогательный массив)
+4. Пока i меньше n, иначе шаг 9
+5. Пока j меньше (размер resultClosure), иначе шаг 8
+6. Если пересечение i-го множества с j-ым эл-ом из системы замыканий нет в системе замыканий, тогда шаг 7
+7. Добавляем это пересечения в всп. массив, j++ и шаг 5
+8. Проходимся по элементам resultArrayOfSets, смотрим, если k-го эл-та нет в системе замыканий,
+    тогда добавляем это пересечение в систему замыканий. После того как рассмотрели все элементы resultArrayOfSets,
+    обнуляем resultArrayOfSets, i++ и переход к шагу 4
+9. Возвращаем систему замыканий
+
+
+Часть 3. Получение матрицы для системы замыканий
+1. resultMatrix = [] (результирующая матрица)
+2. Пока i меньше n, иначе шаг 7 
+3. a = [] (вспомогательный массив)
+4. Пока j меньше n, иначе шаг 6
+5. Если j-ый элемент принадлежит в i-му, добавляем 1 в всп-ый массив, иначе 0, далее j++ и шаг 4
+6. Добавляем всп-ый массив в результирующую матрицу, i++ и шаг 2
+7. Возвращаем матрицу для системы замыканий
+Пример:
+                {1, 2, 3, 4}  {2, 4}  {4}  {1,4}  {1, 3, 4}
+{1, 2, 3, 4}    1             1       1    1      1
+      {2, 4}    0             1       1    0      0
+         {4}    0             0       1    0      0
+       {1,4}    0             0       1    1      0
+   {1, 3, 4}    0             0       1    1      1
+   
+Часть 4. Построение диаграммы Хассе для системы замыканий
+1. level = 1 (текущий уровень)
+2. currentIndex = [] (массив текущих индексов)
+3. arrayOfLevels = [] (массив уровней)
+4. currentLevel = [] (массив текущего уровня)
+5. Пока матрица системы замыканий не пустая
+6. minNumber (мин. кол-во единиц) = кол-во единиц для строки с индексом 0 матрицы системы замыканий 
+    (с помощью функции onesNumber)
+7. Далее проходимся по матрице системы замыканий. Находим с помощью всп. ф-ии onesNumber кол-во единиц в i-ой строке
+Далее смотрим, если текущее кол-во единиц меньше, чем минимальное кол-во единиц, тогда обнуляем массив текущих индексов
+и добавляем в массив текущих индексов индекс строки с мин-ым кол-ом единиц, иначе текущее кол-во единиц 
+равно минимальному, тогда добавляем в массив текущих индексов индекс строки с мин-ым кол-ом единиц.
+8. Далее печатаем уровни диаграммы. Проходимся по индексам в массиве текущих индексов. 
+Если в системе замыканий k-ый элемент - пустое множество, иначе печатаем k-ый элемент из системы замыканий.
+Добавляем в массив текущего уровеня данный элемент. Далее добавляем текущий уровень в массив уровней
+9. Далее проходимся по индексам в массиве индексов. Если индекс больше, чем размер матрицы - 1, 
+тогда присваиваем k размер матрицы - 1. Удаляем из матрицы системы замыканий элемент с k-ым индексом. 
+Удаляем из системы замыканий эл-т с k-ым индексом.
+10. Обнуляем массив текущих индексов, обнуляем массив текущего уровня, переходим на следующий уровень, далее шаг 5
+
+Часть 5. Получение решетки концептов
+1. result = [] (решетка концептов)
+2. a = [] (вспомогательный массив)
+3. Заполняем вспомогательный массив единицами
+4. arrayOfIndex = a (массив чисел, который будем перемножать с строчками матрицы контекста)
+5. Далее будем перемножать строчки матрицы, таким образом получив пересечение множество системы замыканий
+    - arrayOfIndex: изначально заполнен единицами (напр.: 1 1 1 1)
+    - далее перемножаем текущее значение arrayOfIndex на текущую строку из матрицы контекста 
+    (напр.: 1 1 1 1 * 1 0 1 0 = 1 0 1 0)
+    - далее перемножаем полученный результат на след строку (напр.: 1 0 1 0 * 1 1 0 0 = 1 0 0 0) и так далее
+    Если прошли по всем множествам из системы замыканий, тогда шаг 9
+6. flagEmpty = True (флаг для проверки, заполнена строка нулями полностью или нет)
+7. Далее проходимся по эл-ам arrayOfIndex. Если i-ый элемент равен 1, добавляем в всп-ый массив arrayOfChar индекс i+1
+и отмечаем, что строка не заполнена только нулями: flagEmpty = False 
+8. Если строка полностью из нулей, тогда выводим символ пустого множества для нее (flagEmpty = True),
+тогда добавляем в вспомогательный массив arrayOfChar символ пустого множества, далее шаг 4
+9. Возвращаем решетку концептов
+
+Часть 6. Построение диаграммы Хассе для решетки концептов
+Построение диаграммы Хассе для решетки концептов аналогично построению диаграммы Хассе для системы замыканий.
+Единственное, мы добавляем к каждому элементу уровня соответствующее ему значение из решетки концептов.
+
+Проходимся по индексам в массиве индексов. Если в системе замыканий k-ый элемент - пустое множество,
+тогда печать символа пустого множества, а также печать элементов решетки концептов для k-го индекса. 
+Иначе печать k-го элемента системы замыканий, печать элементов решетки концептов для k-го индекса
+
+
+Например:
+Решетка концептов:
+(G, Ø), ({1,2}, {a}) и тд
+В диаграмме Хассе к элемента G, {1,2} и тд добавим Ø, {a} и тд соответственно
+"""
+
+
 print("3. Алгоритм вычисления решетки концептов")
 n = int(input("Введите размер матрицы контекста:"))
 matrix = []
@@ -362,29 +574,29 @@ for i in range(n):
 
 
 #---------------------------------------------
-arrayForMainSet = []
+arrayForMainSet = [] # массив для общего множества
 for i in range(n):
-    arrayForMainSet.append(i + 1)
+    arrayForMainSet.append(i + 1) # добавляем все элементы в общее множество G
 
-mainSet = set(arrayForMainSet)
+mainSet = set(arrayForMainSet) # на основе массива arrayForMainSet строим общее множество G
 
-arrayOfElements = getSetsFromMatrix(matrix, n)
+arrayOfElements = getSetsFromMatrix(matrix, n) # нахождения всех мн-в (напр.: {1, 2}, {2, 3, 4}, {1}, {3, 4})
 #---------------------------------------------
 
 """
 СИСТЕМА ЗАМЫКАНИЙ
 """
 
-closureSys = closureSystem(arrayOfElements, mainSet, n)
-closureSysCopy = copy(closureSys)
+closureSys = closureSystem(arrayOfElements, mainSet, n) # получение системы замыканий
+closureSysCopy = copy(closureSys) # копия системы замыканий
 print("Система замыканий Zfg: ")
 print(closureSys)
 
 """
 МАТРИЦА ДЛЯ СИСТЕМЫ ЗАМЫКАНИЙ
 """
-matrixFromClosureSystem = getMatrixClosure(closureSys, len(closureSys))
-matrixFromClosureSystemCopy = copyMatrix(matrixFromClosureSystem)
+matrixFromClosureSystem = getMatrixClosure(closureSys, len(closureSys)) # получение матрицы системы замыканий
+matrixFromClosureSystemCopy = copyMatrix(matrixFromClosureSystem) # копия матрицы системы замыканий
 
 """
 ДИАГРАММА ХАССЕ ДЛЯ СИСТЕМЫ ЗАМЫКАНИЙ
@@ -396,16 +608,16 @@ print()
 """
 РЕШЕТКА КОНЦЕПТОВ
 """
-conc = concept(matrix, closureSysCopy, n)
+conc = concept(matrix, closureSysCopy, n) # получаем решетку концептов (массив индексов столбцов)
 
 print("Решетка концептов: ")
-for i in range(len(closureSysCopy)):
-    print("φ(", closureSysCopy[i], ") = ", end=' ')
-    for j in conc[i]:
-        if len(conc[i]) == n:
-            print("M")
+for i in range(len(closureSysCopy)): # проходимся по эл-ам системы замыканий
+    print("φ(", closureSysCopy[i], ") = ", end=' ') # печатаем решетку концептов
+    for j in conc[i]: # проходимся по эл-ам элементов решетки концептов
+        if len(conc[i]) == n: # если элемент решетки концептов равен множеству атрибутов M
+            print("M") # печать M для данного элемента
             break
-        elif type(j) is int:
+        elif type(j) is int: # переводим индекс текущего элемента элементов решетки концептов в char
             print(chr(96 + j), end=' ')
         else:
             print(j)
