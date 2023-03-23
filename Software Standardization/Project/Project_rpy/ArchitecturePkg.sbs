@@ -3,8 +3,8 @@ I-Logix-RPY-Archive version 8.5.2 Modeler C++ 1159120
 	- _id = GUID 88d87746-b6b8-4c73-9532-e986e843d144;
 	- _myState = 8192;
 	- _name = "ArchitecturePkg";
-	- _objectCreation = "111421165520232317986311";
-	- _umlDependencyID = "3123";
+	- _objectCreation = "21661321182023212311332";
+	- _umlDependencyID = "3056";
 	- _lastID = 15;
 	- Declaratives = { IRPYRawContainer 
 		- size = 12;
@@ -157,8 +157,8 @@ I-Logix-RPY-Archive version 8.5.2 Modeler C++ 1159120
 				}
 			}
 			- _name = "Block Diagram";
-			- _objectCreation = "111421365520232317984311";
-			- _umlDependencyID = "2766";
+			- _objectCreation = "21661521182023212311132";
+			- _umlDependencyID = "2699";
 			- _lastModifiedTime = "3.6.2023::19:41:48";
 			- _graphicChart = { CGIClassChart 
 				- _id = GUID 8fbc3682-41ea-4316-ad95-2f0acc2d41c1;
@@ -279,7 +279,7 @@ I-Logix-RPY-Archive version 8.5.2 Modeler C++ 1159120
 					}
 					- m_pParent = GUID a4201673-189f-499c-91d5-892c242c6a08;
 					- m_name = { CGIText 
-						- m_str = "SubsystemsPkg::CM_SubsystemPkg::ConnectionManagement";
+						- m_str = "ConnectionManagement";
 						- m_style = "Arial" 10 0 0 0 1 ;
 						- m_color = { IColor 
 							- m_fgColor = 0;
@@ -410,7 +410,7 @@ I-Logix-RPY-Archive version 8.5.2 Modeler C++ 1159120
 					}
 					- m_pParent = GUID a4201673-189f-499c-91d5-892c242c6a08;
 					- m_name = { CGIText 
-						- m_str = "SubsystemsPkg::MM_SubsystemPkg::MobilityManagement";
+						- m_str = "MobilityManagement";
 						- m_style = "Arial" 10 0 0 0 1 ;
 						- m_color = { IColor 
 							- m_fgColor = 0;
@@ -530,7 +530,7 @@ I-Logix-RPY-Archive version 8.5.2 Modeler C++ 1159120
 					}
 					- m_pParent = GUID a4201673-189f-499c-91d5-892c242c6a08;
 					- m_name = { CGIText 
-						- m_str = "SubsystemsPkg::DL_SubsystemPkg::DataLink";
+						- m_str = "DataLink";
 						- m_style = "Arial" 10 0 0 0 1 ;
 						- m_color = { IColor 
 							- m_fgColor = 0;
@@ -1733,8 +1733,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID 1698262e-8b29-4597-bd47-a2b9c2e28e55;
 			- _myState = 8192;
 			- _name = "Actor";
-			- _objectCreation = "111421565520232317982311";
-			- _umlDependencyID = "2087";
+			- _objectCreation = "21661721182023212310932";
+			- _umlDependencyID = "2029";
 			- _m2Classes = { IRPYRawContainer 
 				- size = 1;
 				- value = "Object"; 
@@ -1744,8 +1744,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID 618b61ac-28cf-4987-a01c-b23e847e243f;
 			- _myState = 2048;
 			- _name = "MobilityManagement_ConnectionManagement";
-			- _objectCreation = "111421765520232317980311";
-			- _umlDependencyID = "5600";
+			- _objectCreation = "21661921182023212310732";
+			- _umlDependencyID = "5542";
 			- Conveyed = { IRPYRawContainer 
 				- size = 3;
 				- value = 
@@ -1800,8 +1800,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID d215aca8-540f-490c-9cc9-78dac87d6e99;
 			- _myState = 2048;
 			- _name = "DataLink_MobilityManagement";
-			- _objectCreation = "111421965520232317978311";
-			- _umlDependencyID = "4324";
+			- _objectCreation = "21662121182023212310532";
+			- _umlDependencyID = "4248";
 			- Conveyed = { IRPYRawContainer 
 				- size = 1;
 				- value = 
@@ -1848,8 +1848,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID 711d9d83-dd2e-4547-ac40-cac5ecd738b2;
 			- _myState = 2048;
 			- _name = "Net_DataLink";
-			- _objectCreation = "111422165520232317976311";
-			- _umlDependencyID = "2748";
+			- _objectCreation = "21662321182023212310332";
+			- _umlDependencyID = "2681";
 			- Conveyed = { IRPYRawContainer 
 				- size = 1;
 				- value = 
@@ -1892,50 +1892,50 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID adeb3054-f891-44a8-9b0a-9fc5f05ff76d;
 			- _myState = 8192;
 			- _name = "CallRequests";
-			- _objectCreation = "111422365520232317974311";
-			- _umlDependencyID = "2822";
+			- _objectCreation = "21662521182023212310132";
+			- _umlDependencyID = "2755";
 		}
 		{ IInformationItem 
 			- _id = GUID b39a2935-bf8b-4830-8e56-f8150cd7fba7;
 			- _myState = 8192;
 			- _name = "RegistrationStatus";
-			- _objectCreation = "111422565520232317972311";
-			- _umlDependencyID = "3501";
+			- _objectCreation = "21662721182023212309932";
+			- _umlDependencyID = "3452";
 		}
 		{ IInformationItem 
 			- _id = GUID 16ec6ecb-a7b4-4d00-821d-7be9224c32cd;
 			- _myState = 8192;
 			- _name = "CallStatus";
-			- _objectCreation = "111422765520232317970311";
-			- _umlDependencyID = "2606";
+			- _objectCreation = "21662921182023212309732";
+			- _umlDependencyID = "2557";
 		}
 		{ IInformationItem 
 			- _id = GUID f38965ba-1c5d-4393-a8ec-e7734c160ac9;
 			- _myState = 8192;
 			- _name = "CallRequestsToMM";
-			- _objectCreation = "111422965520232317968311";
-			- _umlDependencyID = "3180";
+			- _objectCreation = "21663121182023212309532";
+			- _umlDependencyID = "3113";
 		}
 		{ IInformationItem 
 			- _id = GUID fcb17d75-3951-4a16-8f16-bf62b39428b8;
 			- _myState = 8192;
 			- _name = "Registration";
-			- _objectCreation = "111423165520232317966311";
-			- _umlDependencyID = "2857";
+			- _objectCreation = "21663321182023212309332";
+			- _umlDependencyID = "2799";
 		}
 		{ IInformationItem 
 			- _id = GUID 481e2819-18d5-4a35-9815-9545828a4b5f;
 			- _myState = 8192;
 			- _name = "LocationUpdate";
-			- _objectCreation = "111423365520232317964311";
-			- _umlDependencyID = "3018";
+			- _objectCreation = "21663521182023212309132";
+			- _umlDependencyID = "2960";
 		}
 		{ IInformationFlow 
 			- _id = GUID 2df0334f-681d-4563-bc0c-f88befc0e72e;
 			- _myState = 2048;
 			- _name = "ConnectionManagement_UI";
-			- _objectCreation = "111423565520232317962311";
-			- _umlDependencyID = "3896";
+			- _objectCreation = "21663721182023212308932";
+			- _umlDependencyID = "3847";
 			- Conveyed = { IRPYRawContainer 
 				- size = 1;
 				- value = 
@@ -1986,9 +1986,9 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID 0f6fde2d-c271-4bc2-982b-7f9871281ad4;
 			- _myState = 40960;
 			- _name = "TopLevel";
-			- _objectCreation = "111423765520232317960311";
-			- _umlDependencyID = "2393";
-			- weakCGTime = 3.6.2023::19:5:42;
+			- _objectCreation = "21663921182023212308732";
+			- _umlDependencyID = "2344";
+			- weakCGTime = 3.6.2023::19:44:57;
 			- strongCGTime = 3.6.2023::19:5:42;
 			- _multiplicity = "";
 			- _itsStateChart = { IHandle 
@@ -2001,8 +2001,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 					- _id = GUID febfe453-aca0-4178-9f6c-ea9356003652;
 					- _myState = 8192;
 					- _name = "UI";
-					- _objectCreation = "111423965520232317958311";
-					- _umlDependencyID = "1749";
+					- _objectCreation = "21664121182023212308532";
+					- _umlDependencyID = "1682";
 					- Stereotypes = { IRPYRawContainer 
 						- size = 1;
 						- value = 
@@ -2028,8 +2028,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 					- _id = GUID 92d15448-94f8-47d8-9dca-f6d5d76114a1;
 					- _myState = 8192;
 					- _name = "Net";
-					- _objectCreation = "111424165520232317956311";
-					- _umlDependencyID = "1877";
+					- _objectCreation = "21664321182023212308332";
+					- _umlDependencyID = "1819";
 					- Stereotypes = { IRPYRawContainer 
 						- size = 1;
 						- value = 
@@ -2058,8 +2058,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID 7413c20b-e267-4278-bdde-a6904c3d7d4c;
 			- _myState = 8192;
 			- _name = "In";
-			- _objectCreation = "111424365520232317954311";
-			- _umlDependencyID = "1765";
+			- _objectCreation = "21664521182023212308132";
+			- _umlDependencyID = "1707";
 			- Dependencies = { IRPYRawContainer 
 				- size = 1;
 				- value = 
@@ -2067,8 +2067,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 					- _id = GUID 54ad251e-ae81-4b18-8e36-1894f7bcff5e;
 					- _myState = 2048;
 					- _name = "Out";
-					- _objectCreation = "111424565520232317952311";
-					- _umlDependencyID = "1894";
+					- _objectCreation = "21664721182023212307932";
+					- _umlDependencyID = "1845";
 					- Stereotypes = { IRPYRawContainer 
 						- size = 1;
 						- value = 
@@ -2108,8 +2108,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 				{ IReception 
 					- _id = GUID 11affbd0-16b7-4939-bd34-d2f1c25d4433;
 					- _myState = 8192;
-					- _objectCreation = "111424765520232317950311";
-					- _umlDependencyID = "1582";
+					- _objectCreation = "21664921182023212307732";
+					- _umlDependencyID = "1533";
 					- _virtual = 0;
 					- Args = { IRPYRawContainer 
 						- size = 0;
@@ -2126,8 +2126,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 				{ IReception 
 					- _id = GUID 974682fa-b0ab-46c6-bfa9-121756dfd460;
 					- _myState = 8192;
-					- _objectCreation = "111424965520232317948311";
-					- _umlDependencyID = "1591";
+					- _objectCreation = "21665121182023212307532";
+					- _umlDependencyID = "1524";
 					- _virtual = 0;
 					- Args = { IRPYRawContainer 
 						- size = 0;
@@ -2152,8 +2152,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			- _id = GUID 12f0a4e1-fc2b-43b0-b105-2a11ff9881d3;
 			- _myState = 8192;
 			- _name = "Out";
-			- _objectCreation = "111425165520232317946311";
-			- _umlDependencyID = "1894";
+			- _objectCreation = "21665321182023212307332";
+			- _umlDependencyID = "1836";
 			- Stereotypes = { IRPYRawContainer 
 				- size = 1;
 				- value = 
@@ -2174,8 +2174,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 				{ IReception 
 					- _id = GUID a0ca5b85-4aa2-4405-ada3-4e6a3469af01;
 					- _myState = 8192;
-					- _objectCreation = "111425365520232317944311";
-					- _umlDependencyID = "1582";
+					- _objectCreation = "21665521182023212307132";
+					- _umlDependencyID = "1524";
 					- _virtual = 0;
 					- Args = { IRPYRawContainer 
 						- size = 0;
@@ -2192,8 +2192,8 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 				{ IReception 
 					- _id = GUID 411c7c60-5414-4552-aa14-bbc3aea2bd29;
 					- _myState = 8192;
-					- _objectCreation = "111425565520232317942311";
-					- _umlDependencyID = "1582";
+					- _objectCreation = "21665721182023212306932";
+					- _umlDependencyID = "1533";
 					- _virtual = 0;
 					- Args = { IRPYRawContainer 
 						- size = 0;
@@ -2214,9 +2214,6 @@ d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6d6
 			}
 			- _classModifier = Unspecified;
 		}
-	}
-	- Events = { IRPYRawContainer 
-		- size = 0;
 	}
 	- _configurationRelatedTime = 3.6.2023::18:43:34;
 }
