@@ -1,0 +1,5 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(run --message /Users/danila/IdeaProjects/steganography/src/main/scala/Encode/message.txt --stego /Users/danila/IdeaProjects/steganography/src/main/scala/Encode/stegocontainer.txt --container /Users/danila/IdeaProjects/steganography/src/main/scala/Encode/container.txt, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / run[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 0 s, completed 15 сент. 2023 г., 03:02:10[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m
